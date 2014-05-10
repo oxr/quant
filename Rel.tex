@@ -1,0 +1,297 @@
+\section{Relational Interpretation}
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "Quant"
+%%% End: 
+
+
+The category $\Rel$ of sets and relations is a basic example of a
+symmetric monoidal compact closed category. The tensor is Cartesian
+product, $\times$, with $1$, the one element set, the unit; $*$ is
+identity. Monoidal closure is therefore just the product. This
+formally exhibits the correspondence between relations and subsets of
+the Cartesian product, because a relation $ 1 \to X \x Y $ is clearly
+just a subset of $X \x Y$, and by monoidal closure it
+is also a relation $ X \to Y $~; and also a relation $X \x Y
+\to 1$.
+
+\ondrej{This is probably best put where compact
+  closed cats are introduced.}
+
+The frobenius maps $\Delta$ is just 
+the diagonal relation $x \sim (x,x)$ and $\nabla$ its transpose; $\bot : 1
+\to X$ is the so-called \emph{fan} relation: $\ast \sim x, ~  \forall
+x$, $\top$ its converse. The required axioms are easilly checked. 
+\ondrej{This is probably best put where Frobenius structure is introduced.}
+
+
+In order to introduce quantification in $\Rel$, we first discuss the
+well know case in $\Set$ where the existential and universal
+quantifiers are left and right adjoints, respectively, to the inverse
+image functor.
+%
+For a set $X$, the set of functions from $X$ to the two-element set,
+$2^X$, is the powerset of $X$.  For a function $f : X \to
+Y$, precomposition with $f$ is internally the map $2^f : 2^Y \to
+2^X$. It takes a $h$ to $hf$.  It has both left and right adjoints
+with respect to the pointwise subset ordering. In more detail, the
+powerset of $X$ ordered by subset inclusion is isomorphic to the set
+of characteristic functions on $X$, $2^X$, ordered pointwise by the
+ordering $0 < 1$ of $2$.  Any pre-ordered set can be seen as a category. The
+function $2^f$ becomes a functor from the category $2^Y$ to
+$2^X$. This functor has both adjoints. It is well known that when $f$
+is the first projection $\pi_1 : X\x Y \to X$, $2^{\pi_1}$ corresponds
+to \emph{weakening} in the sense that subsets of $X$ are predicates on
+$X$, and $2^{\pi_1}$ takes predicates on $X$ to predicates on $X\x Y$
+where the element of the second component $Y$ doesn't occur.  The left
+adjoint to $2^{\pi_1}$ interprets existential quantification in first
+order predicate logic, and the right adjoint interprets universal
+quantification. In detail, 
+the left adjoint, $\exists_f : 2^X \to 2^Y$, is defined by 
+\[\exists_f (X' \subseteq X) = \{ y \in Y ~|~ \exists x \in X. f x = y
+\wedge x \in X'\} \]
+i.e. the image of $X'$ under $f$. It is also known as the
+\emph{direct image} of $f$.
+The right adjoint $\forall_f : 2^X
+\to 2^Y$ is defined by 
+%
+\[
+\forall_f (X' \subseteq X) = \{ y \in Y ~|~ \forall x \in X. f x = y
+\implies x \in X' \} \] 
+%
+
+
+There are other functions from $2^{X\x Y}$ to $2^X$,
+such as the one sending an $f$ to the $g$ for which
+$g(x) = 1$ if and only if $f(x,y) = 1$ for exactly two distinct values
+of $y$. This quantifier could be called ``two''. Another example is
+``none'' for which $g(x)=1$ iff $f(x,y) = 0$ always. This exhibits the 
+existential and universal quantifiers as two extreme cases of a
+spectrum of all possible quantifiers.  
+
+In the following we assume for simplicity that the ambient context,
+$X$, is empty, i.e. $X = 1$, and then quantifiers become certain
+functions $2^Y \to 2$. Everything we say generalises
+straightforwardly for arbitrary $X$.  In this case, the existential quantifier
+becomes the characteristic function of nonempty subsets of $Y$; the
+universal quantifier is the characteristic function of the singleton
+$\{Y\}$, and ``two'' is the characteristic function of two
+element sets.
+
+In single sorted first order predicate logic, quantification ranges
+over the whole domain $Y$, which is simply assumed to be fixed, and
+often implicit, throught the formula. For example, in $\exists x. x >
+0$, the bound variable, $x$, ranges over some ordered set. In
+linguistics, however, the range of quantification is explicitly
+stated, as in ``all men sleep'', where the category ``men'' restricts
+the range of the quantifier, ``all'', to just men. In other words, the
+quantifier is ``all men'', and ``all'' is a particle which expects a
+linguistic category to become a quantifier. Formally, when we fix a
+domain of all possible subjects of quantification, $Y$, a quantifier
+$Q$ must have type
+\begin{equation}\label{eq:q}
+Q ~: ~2^Y \to 2^{2^Y}
+\end{equation}
+
+Here, the first argument to $Q$ is the range of the quantification. The
+result is a quantifier which possibly ignores everything that is
+outside the range.
+
+For instance, ``some'' ($\exists$) takes a subset
+$\;\mathrm{men}\subseteq X\;$ to all nonempty subsets of $\mathrm{men}$; all
+($\forall$) maps $\;\mathrm{men}\subseteq X\;$ to $ \{ \mathrm{men}
+\}$; ``two'' takes $~\mathrm{men} \subseteq X$~ to two-element subsets of
+$\mathrm{men}$.
+
+The exponential functor, $2^-$, is a monad where the unit, $\eta$, maps $x$ to
+$\{x\}$ and multiplication, $\mu$, is set union.  Furthermore, $\Rel$ is
+equivalent to the Kleisli category of this monad, i.e. a relation $R$
+from $X$ to $Y$ is a function $r$ from $X$ to $2^Y$. Recall \cite{CWM}
+that for any monad $(\mathbf{T}, \mu, \eta)$ on $\mathbb{C}$, the
+Kleisli category of $\mathbf{T}$, denoted $\mathbb{C}_{\mathbf{T}}$,
+has the same objects as $\mathbb{C}$. Arrows $X \to Y$ in
+$\mathbb{C}_{\mathbf{T}}$ are arrows $X \to \mathbf{T}Y$ in
+$\mathbb{C}$. Moreover, there is an adjunction $\mathbf{F} \dashv
+\mathbf{U} : \mathbb{C} \to \mathbb{C}_\mathbf{T}$ such that
+$\mathbf{F}$ is identity on objects, and $f \mapsto \eta f$ on arrows
+and $\mathbf{U}$ is $\mathbf{T}$ on objects and $\mu \mathbf{T}(f)$ on
+arrows. Morover, $\mathbf{U}\mathbf{F} = \mathbf{T}$. 
+
+Therefore, a function of type \eqref{eq:q} is
+precisely a relation $2^X \to 2^X$.
+
+\renewcommand{\wp}[1]{2^{#1}} It follows that quantifiers are relations over
+powersets. In order to interpret the rest of the language in $\Rel$ we
+need to lift the powerset functor to $\Rel$. 
+
+It is well known \cite{beck69,mulry94} that every lifting of a monad, $\mathbf{T}$, to the
+Klesli category of another monad, $\mathbf{S}$, is given by a natural
+transformation $\lambda: \mathbf{TS} \dot{\rightarrow} \mathbf{ST}$
+satisfying \emph{(certain axioms)}, where by a lifting of $\mathbf{T}
+: \cat{C} \to \cat{C}$ to $\cat{C}_{\mathbf{S}}$ we mean a functor
+$\mathbf{T}_{\mathbf{S}} : \cat{C}_{\mathbf{S}} \to
+\cat{C}_{\mathbf{S}}$ such that $\mathbf{F}\cdot \mathbf{T} =
+\mathbf{T}_{\mathbf{S}}\cdot \mathbf{F}$. 
+
+In our case, $\mathbf{T} = \mathbf{S} = \wp{-}$, the powerset monad, and
+$\lambda_X: \wp{\wp{ X}} \to \wp{\wp{X}}$ takes $x \in \wp{\wp{X}}$ to the
+principal ideal\footnote{The principal ideal on a set $X$ is a subset
+  of $\wp{X}$ closed under subsets and finite unions.} on $\bigcup
+x$. 
+
+In elementary terms, $\lambda$ takes a set of subsets $X'$ of $X$ to the
+set of \emph{all} subsets of the union of $X'$. 
+In terms of relations, the lifting has the following interpretation:
+it takes a relation $r : X  \to Y$ to the relation $\wp{r} : \wp{X}
+\to \wp{Y}$ for which $X' \subseteq X \sim_{\wp{r}} Y' \subseteq Y$ iff
+$\forall y \in Y'. \exists  x \in X'. x \sim_r y$. 
+
+\section{Ideals and Relations}
+
+
+% The functor
+% $\mathbf{F}\mathbf{U}$, where $\mathbf{F} \dashv \mathbf{U}$ is the
+% splitting of $\wp-$ fits the type but not the purpose as it takes a
+% set $X$ to the functional relation whose only result is the union of
+% $R$ applied to each 
+% . It takes 
+% a relation $R : X \to Y$ to the relation $2^R = \eta\mu: 2^X \to 2^Y$
+
+% , we use the
+% left adjoint $F: \Set \to \Set_{\wp-}$.
+
+
+% lift
+% $\wp-$ to $\Rel$ using a \emph{distributive law} \cite{Beck69}. Define
+% $\wp- : \Rel \to \Rel$ on objects by $X \mapsto \wp X$, and on arrows as
+% follows: a relation $R : X \to Y$ is mapped to that relation $\wp R :
+% \wp X \to \wp Y$ which relates every subset of $X$ to all subsets of
+% $Y$ which arise from $X$ by replacement of elements under $R$. In
+% other words, when relations are understood as nondeterministic partial
+% functions $\wp R$ captures all possible nondeterminism on collections
+% of elements. More formally, identify $\Rel$ with the Kleisli category
+% of $\wp-$. There is a distributive law, a natural transformation
+% $\lambda_X : \wp{\wp X} \to \wp{\wp X}$, which takes a set of subsets
+% of $X$ into the set of its crossections.
+
+% For example: 
+% \begin{align*}
+% \lambda (\{\{a,b\},\{c\}\}) & \quad = \quad \{\{a,c\},\{b,c\}\}\\
+% \lambda (\{\{a\}\},\{\{b\}\}) & \quad = \quad \{ a , b \} \\
+% \lambda (\{\{a,b\},\{c\},\emptyset\}) &\quad = \quad \emptyset
+% \end{align*}
+
+% It follows from the theory in \cite{Beck69} that $\wp-$ lifts to $\Rel$ where a
+% relation $R :  X \to \wp Y$ is taken to $\wp R : \wp X
+% \xrightarrow{\wp r} \wp {\wp Y}
+% \xrightarrow{\lambda_Y} \wp {\wp Y}$.
+
+
+% {\bf Example:} The Frobenius relation $\delta$ is a map : $x \mapsto
+% (x,x)$. It follows that \[2^\delta = X \mapsto \{ (x,x) | x \in X
+% \}\].  
+
+% \begin{quote}
+% {\bf O.R.} Now it all works out :)
+% \end{quote}
+
+
+% Examples of calculations with determiners: exists, all, some, two
+
+
+
+
+
+%For this part, we work in the category $Rel$ of sets and relations. This is compact closed as follows \cite{BobEric}. 
+%
+%Take $N$ to be a vector space with a fixed basis ${\cal B}$, where ${\cal B}$ is a finite set. A  basis vector of $N$  is denoted by $\ov{n}_i$. Given a set of individuals ${\cal U}$,  each  individual is mapped to a basis vector of $N$, the map is denoted by $\pi \colon {\cal U} \to {\cal B}$.  Thus a subset of basis vectors of $N$ represents a subset of individuals.  For example,    the sum $\sum_i \ov{n}_i$ denotes the `men' subset of individuals, where $i$ ranges over the basis vectors that are mappings of the individuals that are men. 
+%
+%Take $S$ to be the one dimensional space free over the singleton $\ov{1}$. The  zero vector represents false, and any nonzero value represents a degree of truth. 
+%
+%A transitive verb $w$, which is a vector in the space $N \otimes S
+%\otimes N$, is represented by 
+%\[
+%\ov{w} := \sum_{ij} \ov{\{{n}\}}_i \otimes \ov{1}  \otimes \ov{\{n\}}_j, \quad 
+%\text{if} \  \pi^{-1}({n}_i) \ w\mbox{'s} \  \pi^{-1}({n}_j)
+%\]
+% For example, the verb ``stroke'', denoted by $\ov{stroke}$, is represented by $
+%\sum_{(i,j) \in  R_{stroke}} \ov{\{n\}}_i \otimes  \ov{1}
+%\otimes \ov{\{n\}}_j$, for  $R_{stroke}$  the set of all pairs $(i,j)$ such that $\pi^{-1}(\ov{n}_i)$ strokes $\pi^{-1}(\ov{n}_j)$.  An intransitive verb ``sneeze'', denoted by $\ov{sneeze}$, is represented by $\sum_{i \in R_{sleep}} \ov{\{n\}}_i \otimes \ov{1}$, such that $\pi^{-1}(\ov{n}_i)$ sneezes.  
+%
+%
+%The meaning of the sentence ``Det Sbj Verb''is a vector obtained by computing the following, which corresponds to the categorical morphism of the normalised diagram of the sentence.  
+%
+%\[
+%(\epsilon_N \otimes 1_S) \circ (Det \otimes  \mu_N \otimes 1_S) \circ (\delta_N \otimes 1_{N \otimes S})\Big(\ov{Sbj} \otimes \ov{Verb}\Big)
+%\]
+%This is computed in three steps. First we compute the following
+%
+%\begin{align*}
+%(\delta_N \otimes 1_{N \otimes S})\Big(\ov{Sbj} \otimes \ov{Verb}\Big) = 
+%(\delta_N \otimes 1_{N \otimes S})\Big((\sum_i \ov{n}_i) \otimes (\sum_j \ov{n}_j  \otimes \ov{1}) \Big) =\\
+%\delta_N(\sum_i \ov{n}_i) \otimes (\sum_j \ov{n}_j \otimes \ov{1}) = (\sum_i \ov{n}_i \otimes \ov{n}_i) \otimes (\sum_j \ov{n}_j \otimes \ov{1})
+%\end{align*}
+%
+%\noindent
+%Then we proceed by
+%
+%\begin{align*}
+%(Det \otimes  \mu_N \otimes 1_S)\Big(\sum_i \ov{n}_i \otimes \ov{n}_i) \otimes (\sum_j \ov{n}_j \otimes \ov{1}\Big) = \\
+%Det(\sum_i \ov{n}_i) \otimes  \mu_N(\sum_i \sum_j \ov{n}_i \otimes \ov{n}_j) \otimes 1_S(\ov{1}) = \\
+%Det(\sum_i \ov{n}_i) \otimes  (\sum_i \sigma_{ij} \ov{n}_i) \otimes \ov{1} 
+%\end{align*}
+%
+%\noindent
+%The final step is as follows:
+%
+%\begin{align*}
+%(\epsilon_{N} \otimes 1_S)  \Big(Det(\sum_i \ov{n}_i) \otimes (\sum_i \sigma_{ij} \ov{n}_i) \otimes \ov{1} \Big) =   \langle \ov{w}_k \mid \ov{\{\sum_i \ov{n}_i\}} \rangle  \otimes \ov{1}
+%\end{align*}
+%
+%\noindent 
+%where $Det (\sum_i \ov{n}_i) = \sum_k \ov{w}_k$, for $w_k \subseteq B_N$ where $B_N$ is the set of basis vectors of $N$.  Meanings of sentences with quantified objects and transitive verbs are computed in an identical fashion. 
+%
+%
+%
+%
+%As an example suppose we have  a set of men $\{m_1, m_2\}$ and a set of cats $\{c_1, c_2\}$. Now suppose that one of the men $m_1$ and all of the cats  sleep, that is we have
+%\[
+%\ov{sleep} \ = \  \ov{m}_1 \otimes \ov{1} + \ov{c}_1 \otimes \ov{1} + \ov{c}_2 \otimes \ov{1}
+%\]
+%Here are some sample sentences:
+%\begin{enumerate}
+%\item The meaning  of the sentence `some men sleep', is computed in three steps. In the first step, we obtain
+%\[
+%(\ov{m}_1 \otimes \ov{m}_1 + \ov{m}_2 \otimes \ov{m}_2)  \otimes ( \ov{m}_1 \otimes \ov{1} + \ov{c}_1 \otimes \ov{1} + \ov{c}_2 \otimes \ov{1})
+%\]
+%In the second step we obtain
+%\[
+%Some(\ov{m}_1 + \ov{m}_2) \otimes {\cal P}(\ov{m}_1) \otimes \ov{1} = 
+%(\ov{\{\ov{m}_1\}} + \ov{\{\ov{m}_2\}} + \ov{\{\ov{m}_1, \ov{m}_2\}}) \otimes (\ov{\{\ov{m}_1\}}) \otimes \ov{1}
+% \]
+%In the last step we obtain $\ov{1}$, since we have $\left \langle \ov{\{\ov{m}_1\}} \mid \ov{\{\ov{m}_1\}}) \right \rangle = 1$. This  means that the meaning of this sentence is true.  
+%\item The meaning of `all men sleep' would be false. Since, in this case, in the second step we would obtain
+%\[
+%All(\ov{m}_1 + \ov{m}_2) \otimes {\cal P}(\ov{m}_1) \otimes \ov{1} = 
+%(\ov{\{\ov{m}_1, \ov{m}_2\}}) \otimes (\ov{\{\ov{m}_1\}}) \otimes \ov{1}
+% \]
+%which would result to a 0 in the third step, since $\left \langle \ov{\{\ov{m}_1, \ov{m}_2\}} \mid \ov{\{\ov{m}_1\}}) \right \rangle = 0$.  
+%\item The sentence `half of  men sleep' would also be true, since in the second step we obtain
+%\[
+%Half(\ov{m}_1 + \ov{m}_2) \otimes {\cal P}(\ov{m}_1) \otimes \ov{1} = 
+%(\ov{\{\ov{m}_1\}} + \ov{\{\ov{m}_2\}}) \otimes (\ov{\{\ov{m}_1\}}) \otimes \ov{1}
+% \]
+%since we  have $\left \langle \ov{\{\ov{m}_1\}} \mid \ov{\{\ov{m}_1\}}) \right \rangle = 1$, in the third step we will obtain a $\ov{1}$.  
+%\item The sentence `no man sleeps' will be false, since in the second step we obtain
+%\[
+%No(\ov{m}_1 + \ov{m}_2) \otimes {\cal P}(\ov{m}_1) \otimes \ov{1} = 
+%(\ov{\{ \ \}}) \otimes (\ov{\{\ov{m}_1\}}) \otimes \ov{1}
+% \]
+% This, in the third step,  will results in $\left \langle \ov{\{\ \}} \mid \ov{\{\ov{m}_1\}}) \right \rangle = 0$.
+%\end{enumerate}
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "Quant"
+%%% End: 
