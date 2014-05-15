@@ -126,10 +126,10 @@ X$ to $\{ y | x R y \}$.
 We need to lift $2^-$ to a functor $2^- : \Rel \to \Rel$
 so that a relation $R : X \to Y$ is taken to a relation $2^R : 2^X \to
 2^Y$ (note that the symbol $2^-$ is overloaded and $2^R$ is in
-$\Rel$). This seems to be easily done as a relation $R$ is a function $R : X
-\to 2^Y$, applying $2^-$ to it gives a function $2^R : 2^X \to
+$\Rel$). This seems to be easily done as a relation $R$ is a function $r : X
+\to 2^Y$, applying $2^-$ to it gives a function $2^r : 2^X \to
 2^{(2^Y)}$, which is a relation $2^X \to 2^Y$. However, this
-definition of the lifting is rather unsatisfactory as it defines a
+definition is rather unsatisfactory as it defines a
 relation between the powerset of the domain and the powerset of the
 codomain which relates each $X' \subseteq X$ to a $Y' \subseteq Y$ iff
 $Y'$ is the image of some $x \in X'$. We would rather want the
