@@ -1,4 +1,5 @@
-\section{Relational Interpretation}
+\section{Quantification in Rel}
+\subsection{Set Theoretical Introduction}
 %%% Local Variables: 
 %%% mode: latex
 %%% TeX-master: "Quant"
@@ -26,28 +27,28 @@ x$, $\top$ its converse. The required axioms are easilly checked.
 
 
 In order to introduce quantification in $\Rel$, we first discuss the
-well know case in $\Set$ where the existential and universal
+well known case in $\Set$ where the existential and universal
 quantifiers are left and right adjoints, respectively, to the inverse
 image functor.
 %
-For a set $X$, the set of functions from $X$ to the two-element set,
-$2^X$, is the powerset of $X$.  For a function $f : X \to
-Y$, precomposition with $f$ is internally the map $2^f : 2^Y \to
-2^X$. It takes a $h$ to $hf$.  It has both left and right adjoints
-with respect to the pointwise subset ordering. In more detail, the
-powerset of $X$ ordered by subset inclusion is isomorphic to the set
-of characteristic functions on $X$, $2^X$, ordered pointwise by the
-ordering $0 < 1$ of $2$.  Any pre-ordered set can be seen as a category. The
-function $2^f$ becomes a functor from the category $2^Y$ to
-$2^X$. This functor has both adjoints. It is well known that when $f$
-is the first projection $\pi_1 : X\x Y \to X$, $2^{\pi_1}$ corresponds
-to \emph{weakening} in the sense that subsets of $X$ are predicates on
-$X$, and $2^{\pi_1}$ takes predicates on $X$ to predicates on $X\x Y$
-where the element of the second component $Y$ doesn't occur.  The left
-adjoint to $2^{\pi_1}$ interprets existential quantification in first
-order predicate logic, and the right adjoint interprets universal
-quantification. In detail, 
-the left adjoint, $\exists_f : 2^X \to 2^Y$, is defined by 
+More formally this can be described as follows. For a set $X$, the set
+of functions from $X$ to the two-element set, $2^X$, is the powerset
+of $X$.  For a function $f : X \to Y$, precomposition with $f$ is
+internally the map $2^f : 2^Y \to 2^X$ that takes a $h$ to $hf$.  It
+has both left and right adjoints with respect to the pointwise subset
+ordering. In more detail, the powerset of $X$ ordered by subset
+inclusion is isomorphic to the set of characteristic functions on $X$,
+$2^X$, ordered pointwise by the ordering $0 < 1$ of $2$.  Any
+pre-ordered set can be seen as a category. The function $2^f$ becomes
+a functor from the category $2^Y$ to $2^X$. This functor has both
+adjoints. It is well known that when $f$ is the first projection
+$\pi_1 : X\x Y \to X$, $2^{\pi_1}$ corresponds to \emph{weakening} in
+the sense that it takes predicates over context $X$ to predicates over
+the larger context, $X \x Y$, where the second component in $Y$
+doesn't occur.  The left adjoint to $2^{\pi_1}$ interprets existential
+quantification, and the right adjoint interprets universal
+quantification. In more detail, the left adjoint, $\exists_f : 2^X \to
+2^Y$, is defined by
 \[\exists_f (X' \subseteq X) = \{ y \in Y ~|~ \exists x \in X. f x = y
 \wedge x \in X'\} \]
 i.e. the image of $X'$ under $f$. It is also known as the
@@ -67,7 +68,8 @@ $g(x) = 1$ if and only if $f(x,y) = 1$ for exactly two distinct values
 of $y$. This quantifier could be called ``two''. Another example is
 ``none'' for which $g(x)=1$ iff $f(x,y) = 0$ always. This exhibits the 
 existential and universal quantifiers as two extreme cases of a
-spectrum of all possible quantifiers.  
+spectrum of all possible quantifiers\footnote{Uhm, yes. That is
+  precisely what it means to be a left and right adjoint.}  .  
 
 In the following we assume for simplicity that the ambient context,
 $X$, is empty, i.e. $X = 1$, and then quantifiers become certain
@@ -75,20 +77,19 @@ functions $2^Y \to 2$. Everything we say generalises
 straightforwardly for arbitrary $X$.  In this case, the existential quantifier
 becomes the characteristic function of nonempty subsets of $Y$; the
 universal quantifier is the characteristic function of the singleton
-$\{Y\}$, and ``two'' is the characteristic function of two
-element sets.
+$\{Y\}$, and ``two'' is the characteristic function of two-element sets.
 
 In single sorted first order predicate logic, quantification ranges
 over the whole domain $Y$, which is simply assumed to be fixed, and
 often implicit, throught the formula. For example, in $\exists x. x >
 0$, the bound variable, $x$, ranges over some ordered set. In
 linguistics, however, the range of quantification is explicitly
-stated, as in ``all men sleep'', where the category ``men'' restricts
-the range of the quantifier, ``all'', to just men. In other words, the
+stated, as in ``all men sleep'', where the word ``men'' restricts the
+range of the quantifier, ``all'', to just men. In other words, the
 quantifier is ``all men'', and ``all'' is a particle which expects a
 linguistic category to become a quantifier. Formally, when we fix a
-domain of all possible subjects of quantification, $Y$, a quantifier
-$Q$ must have type
+domain of all possible subjects of quantification, $Y$, such as all
+nouns, a quantifier $Q$ must have type
 \begin{equation}\label{eq:q}
 Q ~: ~2^Y \to 2^{2^Y}
 \end{equation}
@@ -103,50 +104,82 @@ $\;\mathrm{men}\subseteq X\;$ to all nonempty subsets of $\mathrm{men}$; all
 \}$; ``two'' takes $~\mathrm{men} \subseteq X$~ to two-element subsets of
 $\mathrm{men}$.
 
-The exponential functor, $2^-$, is a monad where the unit, $\eta$, maps $x$ to
-$\{x\}$ and multiplication, $\mu$, is set union.  Furthermore, $\Rel$ is
-equivalent to the Kleisli category of this monad, i.e. a relation $R$
-from $X$ to $Y$ is a function $r$ from $X$ to $2^Y$. Recall \cite{CWM}
-that for any monad $(\mathbf{T}, \mu, \eta)$ on $\mathbb{C}$, the
-Kleisli category of $\mathbf{T}$, denoted $\mathbb{C}_{\mathbf{T}}$,
-has the same objects as $\mathbb{C}$. Arrows $X \to Y$ in
-$\mathbb{C}_{\mathbf{T}}$ are arrows $X \to \mathbf{T}Y$ in
-$\mathbb{C}$. Moreover, there is an adjunction $\mathbf{F} \dashv
-\mathbf{U} : \mathbb{C} \to \mathbb{C}_\mathbf{T}$ such that
-$\mathbf{F}$ is identity on objects, and $f \mapsto \eta f$ on arrows
-and $\mathbf{U}$ is $\mathbf{T}$ on objects and $\mu \mathbf{T}(f)$ on
-arrows. Morover, $\mathbf{U}\mathbf{F} = \mathbf{T}$. 
+\subsection{The Relational Case}
+The assignment $X \mapsto 2^X$ extends to a functor $2^- : \Set \to
+\Set$ where the action on arrows is the direct image. The functor is a
+monad where the unit, $\eta$, maps $x$ to $\{x\}$ and multiplication,
+$\mu$, is set union. Recall \cite{CWM} that for any monad
+$(\mathbf{T}, \mu, \eta)$ on $\mathbb{C}$, the Kleisli category of
+$\mathbf{T}$, denoted $\mathbb{C}_{\mathbf{T}}$, has the same objects
+as $\mathbb{C}$. Arrows $X \to Y$ in $\mathbb{C}_{\mathbf{T}}$ are
+arrows $X \to \mathbf{T}Y$ in $\mathbb{C}$. Moreover, there is an
+adjunction $\mathbf{F} \dashv \mathbf{U} : \mathbb{C} \to
+\mathbb{C}_\mathbf{T}$ such that $\mathbf{F}$ is identity on objects,
+and $f \mapsto \eta f$ on arrows and $\mathbf{U}$ is $\mathbf{T}$ on
+objects and $\mu \mathbf{T}(f)$ on arrows. Moreover,
+$\mathbf{U}\mathbf{F} = \mathbf{T}$.
 
-Therefore, a function of type \eqref{eq:q} is
-precisely a relation $2^X \to 2^X$.
+By $\Rel$ we mean the Kleisli category of $2^-$, which we
+understand as the category of sets and relations where a relation $R$
+from $X$ to $Y$ is a function $r$ from $X$ to $2^Y$ sending an $x \in
+X$ to $\{ y | x R y \}$.
+We need to lift $2^-$ to a functor $2^- : \Rel \to \Rel$
+so that a relation $R : X \to Y$ is taken to a relation $2^R : 2^X \to
+2^Y$ (note that the symbol $2^-$ is overloaded and $2^R$ is in
+$\Rel$). This seems to be easily done as a relation $R$ is a function $R : X
+\to 2^Y$, applying $2^-$ to it gives a function $2^R : 2^X \to
+2^{(2^Y)}$, which is a relation $2^X \to 2^Y$. However, this
+definition of the lifting is rather unsatisfactory as it defines a
+relation between the powerset of the domain and the powerset of the
+codomain which relates each $X' \subseteq X$ to a $Y' \subseteq Y$ iff
+$Y'$ is the image of some $x \in X'$. We would rather want the
+following definition of the direct image of a relation:
+%
+\[
+X' ~ \sim_{2^R} ~ Y' \quad \equiv \quad \forall y \in Y'.\exists x \in
+X'. x \sim_R y \]
+%
+In terms of functions in the Kleisli category, this corresponds to
+taking the principal ideal of the union of $2^r$. 
 
-\renewcommand{\wp}[1]{2^{#1}} It follows that quantifiers are relations over
-powersets. In order to interpret the rest of the language in $\Rel$ we
-need to lift the powerset functor to $\Rel$. 
 
-It is well known \cite{beck69,mulry94} that every lifting of a monad, $\mathbf{T}$, to the
-Klesli category of another monad, $\mathbf{S}$, is given by a natural
-transformation $\lambda: \mathbf{TS} \dot{\rightarrow} \mathbf{ST}$
-satisfying \emph{(certain axioms)}, where by a lifting of $\mathbf{T}
-: \cat{C} \to \cat{C}$ to $\cat{C}_{\mathbf{S}}$ we mean a functor
-$\mathbf{T}_{\mathbf{S}} : \cat{C}_{\mathbf{S}} \to
-\cat{C}_{\mathbf{S}}$ such that $\mathbf{F}\cdot \mathbf{T} =
-\mathbf{T}_{\mathbf{S}}\cdot \mathbf{F}$. 
+\renewcommand{\wp}[1]{2^{#1}} Equation \eqref{eq:q}  exhibits a
+quantifier as a relation $\wp{Y} \to \wp{Y}$.  In order to interpret
+the rest of the language in $\Rel$ we use to direct image lifting of the powerset
+functor to $\Rel$ defined above.
 
-In our case, $\mathbf{T} = \mathbf{S} = \wp{-}$, the powerset monad, and
-$\lambda_X: \wp{\wp{ X}} \to \wp{\wp{X}}$ takes $x \in \wp{\wp{X}}$ to the
-principal ideal\footnote{The principal ideal on a set $X$ is a subset
-  of $\wp{X}$ closed under subsets and finite unions.} on $\bigcup
-x$. 
 
-In elementary terms, $\lambda$ takes a set of subsets $X'$ of $X$ to the
-set of \emph{all} subsets of the union of $X'$. 
-In terms of relations, the lifting has the following interpretation:
-it takes a relation $r : X  \to Y$ to the relation $\wp{r} : \wp{X}
-\to \wp{Y}$ for which $X' \subseteq X \sim_{\wp{r}} Y' \subseteq Y$ iff
-$\forall y \in Y'. \exists  x \in X'. x \sim_r y$. 
 
-\section{Ideals and Relations}
+
+% It is well known \cite{beck69,mulry94} that every lifting of a monad, $\mathbf{T}$, to the
+% Klesli category of another monad, $\mathbf{S}$, is given by a natural
+% transformation $\lambda: \mathbf{TS} \dot{\rightarrow} \mathbf{ST}$
+% satisfying \emph{(certain axioms)}, where by a lifting of $\mathbf{T}
+% : \cat{C} \to \cat{C}$ to $\cat{C}_{\mathbf{S}}$ we mean a functor
+% $\mathbf{T}_{\mathbf{S}} : \cat{C}_{\mathbf{S}} \to
+% \cat{C}_{\mathbf{S}}$ such that $\mathbf{F}\cdot \mathbf{T} =
+% \mathbf{T}_{\mathbf{S}}\cdot \mathbf{F}$. 
+
+% In our case, $\mathbf{T} = \mathbf{S} = \wp{-}$, the powerset monad, and
+% $\lambda_X: \wp{\wp{ X}} \to \wp{\wp{X}}$ takes $x \in \wp{\wp{X}}$ to the
+% principal ideal\footnote{The principal ideal on a set $X$ is a subset
+%   of $\wp{X}$ closed under subsets and finite unions.} on $\bigcup
+% x$. 
+
+% In elementary terms, $\lambda$ takes a set of subsets $X'$ of $X$ to the
+% set of \emph{all} subsets of the union of $X'$. 
+% In terms of relations, the lifting has the following interpretation:
+% it takes a relation $r : X  \to Y$ to the relation $\wp{r} : \wp{X}
+% \to \wp{Y}$ for which $X' \subseteq X \sim_{\wp{r}} Y' \subseteq Y$ iff
+% $\forall y \in Y'. \exists  x \in X'. x \sim_r y$. 
+
+\subsection{Ideals and Relations}
+\ondrej{Roughly: properties are relations $\wp{X} \to \wp{Y}$ which
+  are downclosed -- if a collections of things has the property, each
+  it's subset has the property, closed under unions -- if things in two
+  collections have the property, then each thing in their union has
+  the property, contains the empty set -- trivially. This is to be
+  worked out.}
 
 
 % The functor
