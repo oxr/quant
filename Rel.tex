@@ -136,44 +136,62 @@ x ~\sim_R~ y \quad \equiv \quad y \in fx
 quantifier as a relation $\wp{Y} \to \wp{Y}$.  
 
 
-In order to interpret
-the rest of the language in $\Rel$ we must first lift the
-powerset-functor from $\Set$ to $\Rel$. 
-Even though relations are certain functions, the action
-of the $\Set$-functor $2^{(-)}$ is not a desirable one as it defines a
-relation between $2^X$ and $2^Y$ which relates each $X' \subseteq
-X$ to a $Y' \subseteq Y$ iff $Y'$ is the image of some $x \in X'$ so
-we need another functor, namely define the powerset relation of a
-relation $R : X \to Y$:
+So in order to interpret generailed quantifiers in $\Rel$, we look
+into relations over powersets. And the first line of attack is to try
+to lift the powerset functor from $\Set$ to $\Rel$. That would allow
+us to take constructions in $\Rel$ to constructions in $\Rel$ which
+involve powersets. More exactly, we'd like to have a functor that acts
+as $2^(-)$ on objects. The question is what should be the action on
+arrows.  One possibility is to use the action of $2^{(-)}$ on
+functions because relations are functions of the form $X \to 2^Y$ and
+applying $2^{(-)}$ to it gives a function of the same form namely $2^X
+\to 2^{2^Y}$. However, this definition is not very practical as it
+defines a relation between $2^X$ and $2^Y$ which relates each $X'
+\subseteq X$ to a $Y' \subseteq Y$ iff $Y'$ is the image of some $x
+\in X'$. We need something else.  Here is another possibility:
+define the powerset relation of a relation $R : X \to Y$ to be:
 %
 \begin{equation}\label{eq:power}
-X' ~ \sim_{2^R} ~ Y' \quad \equiv \quad \forall y \exists x . x \sim_R y
+X' ~ \sim_{\exists R} ~ Y' \quad \equiv \quad \forall y \exists x . x \sim_R y
 \end{equation}
 % 
-\begin{lemma}
-Equation \eqref{eq:power} defines a functor $2^{(-)}: \Rel \to \Rel$.
-\end{lemma}
-\begin{proof}
-  To show that $2^{(-)}$ doesn't preserve identities, note that $x \sim_\id y
-  \equiv x = y$. Then 
-  \begin{align*}
-    X' \sim_{2^\id} Y' & ~ \equiv ~ \forall y \in Y' ~ \exists x \,.\, x \sim_\id y\\
+The trouble is this doesn't define a functor as the following
+calculation shows, using $x \sim_\id y
+\equiv x = y$. Then 
+\begin{align*}
+    X' \sim_{\exists \id} Y' & ~ \equiv ~ \forall y \in Y' ~ \exists x \,.\, x \sim_\id y\\
 &~\equiv~ \forall y \in Y' ~ \exists x\,.\, x = y \\
 &~\equiv~\forall y \in Y' \,.\, y \in X'\\
 & ~\equiv ~ Y' \subseteq X'
   \end{align*}
-  To show that $2^{(-)}$ preserves composition (or that it doesn't) we
-  compute:
-  \begin{align}
-X' \sim_{2^R};\sim_{2^S} Z'& ~ \equiv ~\exists Y'. Y' \sim_{2^S} Z' \wedge X' \sim_{2^R} Y'\notag\\
+%
+So $\exists \id$ is the down-closure of the identitiy. This is a general
+fact for all relations of the form $\exists R$, namely that whenever $X
+\sim_{\exists R} Y$ then also $X' \sim_{\exists R} Y'$ for $X \subseteq X'$ and
+$Y' \subseteq Y$. \marginpar{\tiny Something to say about\\weakest
+  preconditions\\and strongest\\postconditions? }
+
+\begin{remark}
+It follows that a subset of $X' \subseteq X$, i.e. a relation $X' : 1 \to X$, is
+mapped to $2 \to 2^X$, which relates $1$ to the principal ideal of
+$X'$, i.e. the set of subsets of $X'$, and $0$ to nothing. On the
+other hand, and dually, $X' : X \to 1$ is mapped to $2^X \to 2$ such
+that all of $X'$ and all its superset are related to $1$ and nothing
+to $0$. 
+\end{remark}
+
+This could be useful though. Luckily, $\exists {(-)}$ preserves composition
+as the following calculation shows:
+\begin{align}
+X' \sim_{\exists R};\sim_{\exists S} Z'& ~ \equiv ~\exists Y'. Y' \sim_{\exists S} Z' \wedge X' \sim_{\exists R} Y'\notag\\
 \label{eq:comp1}  & ~ \equiv ~ \exists Y'.(\forall z\in Z'\exists y\in
 Y'. y \sim_S z)\wedge (\forall y\in Y' \exists x \in X'. x \sim_R y) 
-  \end{align}
-\end{proof}
+\end{align}
+
 %
 This should be equivalent to:
 \begin{align}
-X' \sim_{2^{R;S}} Z' &~\equiv~ \forall z\in Z' \exists x \in X'. x~ R;S~ z\notag\\
+X' \sim_{\exists {R;S}} Z' &~\equiv~ \forall z\in Z' \exists x \in X'. x~ R;S~ z\notag\\
 \label{eq:comp2}&~\equiv~ \forall z\in Z' \exists x\in X'\exists y\in Y. x \sim_R y \wedge y \sim_S z
 \end{align}
 To show that \eqref{eq:comp1} implies \eqref{eq:comp2}, assume a $z \in
@@ -186,35 +204,21 @@ define $Y'$ to be the set of all $y \in Y$ that are given by the
 existential in \eqref{eq:comp2} for some $z$. Then clearly for all $y
 \in Y'$, the conclusion of \eqref{eq:comp1} holds. 
 
-This functor takes
-$X\times Y$ to $2^{X\x Y} \cong (2^X)^Y \cong (2^Y)^X$. Otoh $2^X \x
-2^Y \cong 2^{X + Y}$. There is an arrow $X + X \to X x X$ defined by
-$[ \Delta_X, \Delta_X]$. 
+So \eqref{eq:power} deoesn't define a functor $\Rel \to \Rel$ but
+nevertheless it preserves commuting diagrams. 
 
-It follows that every
-relation over powersets bears a Frobenius alebra defined explicitly as
-follows:
-$2^\Delta : 2^X \to 2^X \times 2^X$
-
-
-
-
-Formally, let $r : X \to 2^Y$ be the Kleisli arrow corresponding to
-$\sim_R$. Then the relation $\sim_{2^R} : 2^X \to 2^Y$ is defined by:
-\[
-2^X \xrightarrow{2^r} 2^{2^Y} \xrightarrow{\mu} 2^Y
-\xrightarrow{\iota} 2^{2^Y}
-\]
-where $\iota$ assignes to a subset $Y'$ of $Y$ the set of all subsets
-of $Y'$, and $\mu$ is set union as before. 
-
-Note that $\mu\cdot \iota ~ = ~ 1_{2^Y}$ . It means
-that $\mu$ is a retraction for $\iota$ and for $\lambda = \iota\cdot
-\mu$,  $\lambda\cdot \lambda = \lambda$, i.e. $\lambda$ is \emph{idempotent}. 
-
-
-
-
+Next we define frobenius algebras. This is easy as we just use the
+usual definition for sets and relations. The following observation
+might be useful: 
+\begin{remark}
+The relation $\Delta_{\exists X} : 2^X
+\to 2^X \x 2^X$ is equal to $2^X \to^{\exists \Delta} 2^{X \x X}
+\to^{[\Delta,\Delta]_\ast} 2^{X + X} \cong 2^X \x 2^X$.  $2^\Delta$ relates
+a subset $X' \subseteq X$ to subsets $\{ (x,x) | x \in X' \}\subseteq
+X \x X$. The inverse image ${[\Delta,\Delta]_\ast}$ unzips the diagonal
+to a pair of identical subsets of $X$. Thus, the composition is equal
+to $\Delta$.
+\end{remark}
 
 
 % It is well known \cite{beck69,mulry94} that every lifting of a monad, $\mathbf{T}$, to the
@@ -238,6 +242,15 @@ that $\mu$ is a retraction for $\iota$ and for $\lambda = \iota\cdot
 % it takes a relation $r : X  \to Y$ to the relation $\wp{r} : \wp{X}
 % \to \wp{Y}$ for which $X' \subseteq X \sim_{\wp{r}} Y' \subseteq Y$ iff
 % $\forall y \in Y'. \exists  x \in X'. x \sim_r y$. 
+
+\subsection{$\forall R$ and Comparison with adjoints}
+Recall the contravariant inverse image functor $(-)_\ast : \Rel^\op
+\to \Rel$ taking an $R : X \to Y$ to $R_\ast : 2^Y \to 2^X$ defined by 
+\[
+Y' \sim_{R_\ast} X' \quad \equiv \quad 
+\]
+
+
 
 \subsection{Ideals and Relations}
 \ondrej{Roughly: properties are relations $\wp{X} \to \wp{Y}$ which
