@@ -8,13 +8,16 @@
 
 The category $\Rel$ of sets and relations is a basic example of a
 symmetric monoidal compact closed category. The tensor is Cartesian
-product, $\times$, with $1$, the one element set, the unit; $*$ is
-identity. Monoidal closure is therefore just the product. This
-formally exhibits the correspondence between relations and subsets of
-the Cartesian product, because a relation $ 1 \to X \x Y $ is clearly
-just a subset of $X \x Y$, and by monoidal closure it
-is also a relation $ X \to Y $~; and also a relation $X \x Y
-\to 1$.
+product, $\times$, and monoidal the unit is the one element set,
+$1$, $A^\ast = A$. 
+Monoidal closure is therefore just the product. 
+As an example consider the correspondence between relations and subsets of
+the Cartesian product expressed formally as
+\[
+\Rel(1, X \x Y) ~\cong~\Rel(X,Y)~\cong~\Rel(X\x Y , 1)\]
+%
+where we are repeatedly using compact closure and the fact that
+relation beween $1$ and $Z$ are demonstrably subsets of $Z$. 
 
 \ondrej{This is probably best put where compact
   closed cats are introduced.}
@@ -39,18 +42,22 @@ has both left and right adjoints with respect to the pointwise subset
 ordering. In more detail, the powerset of $X$ ordered by subset
 inclusion is isomorphic to the set of characteristic functions on $X$,
 $2^X$, ordered pointwise by the ordering $0 < 1$ of $2$.  Any
-pre-ordered set can be seen as a category. The function $2^f$ becomes
-a functor from the category $2^Y$ to $2^X$. This functor has both
-adjoints. It is well known that when $f$ is the first projection
-$\pi_1 : X\x Y \to X$, $2^{\pi_1}$ corresponds to \emph{weakening} in
-the sense that it takes predicates over context $X$ to predicates over
-the larger context, $X \x Y$, where the second component in $Y$
-doesn't occur.  The left adjoint to $2^{\pi_1}$ interprets existential
-quantification, and the right adjoint interprets universal
-quantification. In more detail, the left adjoint, $\exists_f : 2^X \to
-2^Y$, is defined by
-\[\exists_f (X' \subseteq X) = \{ y \in Y ~|~ \exists x \in X. f x = y
-\wedge x \in X'\} \]
+pre-ordered set can be seen as a category\footnote{internal
+  category?}. The function $2^f$ becomes a functor\footnote{internal functor?}
+from the category $2^Y$ to $2^X$. This functor has both adjoints. It
+is well known that when $f$ is the first projection $\pi_1 : X\x Y \to
+X$, $2^{\pi_1}$ corresponds to \emph{weakening} in the sense that it
+takes predicates over context $X$ to predicates over the larger
+context, $X \x Y$, where the second component in $Y$ doesn't occur.
+The left adjoint to $2^{\pi_1}$ interprets existential quantification,
+and the right adjoint interprets universal quantification. In more
+detail, the left adjoint, $\exists_f : 2^X \to 2^Y$, is defined by
+%
+\begin{equation}\label{eq:di}
+\exists_f (X' \subseteq X) = \{ y \in Y ~|~ \exists x \in X. f x = y
+\wedge x \in X'\} 
+\end{equation}
+%
 i.e. the image of $X'$ under $f$. It is also known as the
 \emph{direct image} of $f$.
 The right adjoint $\forall_f : 2^X
@@ -105,48 +112,107 @@ $\;\mathrm{men}\subseteq X\;$ to all nonempty subsets of $\mathrm{men}$; all
 $\mathrm{men}$.
 
 \subsection{The Relational Case}
-The assignment $X \mapsto 2^X$ extends to a functor $2^- : \Set \to
-\Set$ where the action on arrows is the direct image. The functor is a
-monad where the unit, $\eta$, maps $x$ to $\{x\}$ and multiplication,
-$\mu$, is set union. Recall \cite{CWM} that for any monad
-$(\mathbf{T}, \mu, \eta)$ on $\mathbb{C}$, the Kleisli category of
-$\mathbf{T}$, denoted $\mathbb{C}_{\mathbf{T}}$, has the same objects
-as $\mathbb{C}$. Arrows $X \to Y$ in $\mathbb{C}_{\mathbf{T}}$ are
-arrows $X \to \mathbf{T}Y$ in $\mathbb{C}$. Moreover, there is an
+The assignment $X \mapsto 2^X$ extends to a functor $2^{(-)} : \Set \to
+\Set$ where the action on arrows is direct image \eqref{eq:di}.
+The functor is a monad where the unit, $\eta$, maps $x$ to $\{x\}$ and
+multiplication, $\mu$, is set union. Recall \cite{CWM} that for any
+monad $(\mathbf{T}, \mu, \eta)$ on $\mathbb{C}$, the Kleisli category
+of $\mathbf{T}$, denoted $\mathbb{C}_{\mathbf{T}}$, has the same
+objects as $\mathbb{C}$. Arrows $X \to Y$ in $\mathbb{C}_{\mathbf{T}}$
+are arrows $X \to \mathbf{T}Y$ in $\mathbb{C}$. Moreover, there is an
 adjunction $\mathbf{F} \dashv \mathbf{U} : \mathbb{C} \to
 \mathbb{C}_\mathbf{T}$ such that $\mathbf{F}$ is identity on objects,
-and $f \mapsto \eta f$ on arrows and $\mathbf{U}$ is $\mathbf{T}$ on
-objects and $\mu \mathbf{T}(f)$ on arrows. Moreover,
+and $f \mapsto \eta \cdot f$ on arrows and $\mathbf{U}$ is $\mathbf{T}$ on
+objects and $\mu\cdot\mathbf{T}f$ on arrows. Moreover,
 $\mathbf{U}\mathbf{F} = \mathbf{T}$.
 
-By $\Rel$ we mean the Kleisli category of $2^-$, which we
-understand as the category of sets and relations where a relation $R$
-from $X$ to $Y$ is a function $r$ from $X$ to $2^Y$ sending an $x \in
-X$ to $\{ y | x R y \}$.
-We need to lift $2^-$ to a functor $2^- : \Rel \to \Rel$
-so that a relation $R : X \to Y$ is taken to a relation $2^R : 2^X \to
-2^Y$ (note that the symbol $2^-$ is overloaded and $2^R$ is in
-$\Rel$). This seems to be easily done as a relation $R$ is a function $r : X
-\to 2^Y$, applying $2^-$ to it gives a function $2^r : 2^X \to
-2^{(2^Y)}$, which is a relation $2^X \to 2^Y$. However, this
-definition is rather unsatisfactory as it defines a
-relation between the powerset of the domain and the powerset of the
-codomain which relates each $X' \subseteq X$ to a $Y' \subseteq Y$ iff
-$Y'$ is the image of some $x \in X'$. We would rather want the
-following definition of the direct image of a relation:
-%
+By $\Rel$ we hereafter mean the Kleisli category of $2^{(-)}$, which is 
+understood as the category of sets and relations where a function $r :
+X \to 2^Y$ defines a relation $\sim_R$ by
 \[
-X' ~ \sim_{2^R} ~ Y' \quad \equiv \quad \forall y \in Y'.\exists x \in
-X'. x \sim_R y \]
+x ~\sim_R~ y \quad \equiv \quad y \in fx
+\]
+\renewcommand{\wp}[1]{2^{#1}} It follows that equation \eqref{eq:q}  exhibits a
+quantifier as a relation $\wp{Y} \to \wp{Y}$.  
+
+
+In order to interpret
+the rest of the language in $\Rel$ we must first lift the
+powerset-functor from $\Set$ to $\Rel$. 
+Even though relations are certain functions, the action
+of the $\Set$-functor $2^{(-)}$ is not a desirable one as it defines a
+relation between $2^X$ and $2^Y$ which relates each $X' \subseteq
+X$ to a $Y' \subseteq Y$ iff $Y'$ is the image of some $x \in X'$ so
+we need another functor, namely define the powerset relation of a
+relation $R : X \to Y$:
 %
-In terms of functions in the Kleisli category, this corresponds to
-taking the principal ideal of the union of $2^r$. 
+\begin{equation}\label{eq:power}
+X' ~ \sim_{2^R} ~ Y' \quad \equiv \quad \forall y \exists x . x \sim_R y
+\end{equation}
+% 
+\begin{lemma}
+Equation \eqref{eq:power} defines a functor $2^{(-)}: \Rel \to \Rel$.
+\end{lemma}
+\begin{proof}
+  To show that $2^{(-)}$ doesn't preserve identities, note that $x \sim_\id y
+  \equiv x = y$. Then 
+  \begin{align*}
+    X' \sim_{2^\id} Y' & ~ \equiv ~ \forall y \in Y' ~ \exists x \,.\, x \sim_\id y\\
+&~\equiv~ \forall y \in Y' ~ \exists x\,.\, x = y \\
+&~\equiv~\forall y \in Y' \,.\, y \in X'\\
+& ~\equiv ~ Y' \subseteq X'
+  \end{align*}
+  To show that $2^{(-)}$ preserves composition (or that it doesn't) we
+  compute:
+  \begin{align}
+X' \sim_{2^R};\sim_{2^S} Z'& ~ \equiv ~\exists Y'. Y' \sim_{2^S} Z' \wedge X' \sim_{2^R} Y'\notag\\
+\label{eq:comp1}  & ~ \equiv ~ \exists Y'.(\forall z\in Z'\exists y\in
+Y'. y \sim_S z)\wedge (\forall y\in Y' \exists x \in X'. x \sim_R y) 
+  \end{align}
+\end{proof}
+%
+This should be equivalent to:
+\begin{align}
+X' \sim_{2^{R;S}} Z' &~\equiv~ \forall z\in Z' \exists x \in X'. x~ R;S~ z\notag\\
+\label{eq:comp2}&~\equiv~ \forall z\in Z' \exists x\in X'\exists y\in Y. x \sim_R y \wedge y \sim_S z
+\end{align}
+To show that \eqref{eq:comp1} implies \eqref{eq:comp2}, assume a $z \in
+Z'$, by the first component of \eqref{eq:comp1} we have a $Y'
+\subseteq Y$ and a $y \in Y'$
+such that $y \sim_S z$. By the second component of \eqref{eq:comp1},
+we have for this $y$ and $x \in X'$ such that $x \sim_R y$, as requred
+by \eqref{eq:comp2}. On the other hand, assume \eqref{eq:comp2} and
+define $Y'$ to be the set of all $y \in Y$ that are given by the
+existential in \eqref{eq:comp2} for some $z$. Then clearly for all $y
+\in Y'$, the conclusion of \eqref{eq:comp1} holds. 
+
+This functor takes
+$X\times Y$ to $2^{X\x Y} \cong (2^X)^Y \cong (2^Y)^X$. Otoh $2^X \x
+2^Y \cong 2^{X + Y}$. There is an arrow $X + X \to X x X$ defined by
+$[ \Delta_X, \Delta_X]$. 
+
+It follows that every
+relation over powersets bears a Frobenius alebra defined explicitly as
+follows:
+$2^\Delta : 2^X \to 2^X \times 2^X$
 
 
-\renewcommand{\wp}[1]{2^{#1}} Equation \eqref{eq:q}  exhibits a
-quantifier as a relation $\wp{Y} \to \wp{Y}$.  In order to interpret
-the rest of the language in $\Rel$ we use to direct image lifting of the powerset
-functor to $\Rel$ defined above.
+
+
+Formally, let $r : X \to 2^Y$ be the Kleisli arrow corresponding to
+$\sim_R$. Then the relation $\sim_{2^R} : 2^X \to 2^Y$ is defined by:
+\[
+2^X \xrightarrow{2^r} 2^{2^Y} \xrightarrow{\mu} 2^Y
+\xrightarrow{\iota} 2^{2^Y}
+\]
+where $\iota$ assignes to a subset $Y'$ of $Y$ the set of all subsets
+of $Y'$, and $\mu$ is set union as before. 
+
+Note that $\mu\cdot \iota ~ = ~ 1_{2^Y}$ . It means
+that $\mu$ is a retraction for $\iota$ and for $\lambda = \iota\cdot
+\mu$,  $\lambda\cdot \lambda = \lambda$, i.e. $\lambda$ is \emph{idempotent}. 
+
+
 
 
 
