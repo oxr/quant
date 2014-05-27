@@ -1,5 +1,4 @@
-\section{Quantification in Rel}
-\subsection{Set Theoretical Introduction}
+\section{Quantification in Sets}
 %%% Local Variables: 
 %%% mode: latex
 %%% TeX-master: "Quant"
@@ -111,7 +110,18 @@ $\;\mathrm{men}\subseteq X\;$ to all nonempty subsets of $\mathrm{men}$; all
 \}$; ``two'' takes $~\mathrm{men} \subseteq X$~ to two-element subsets of
 $\mathrm{men}$.
 
-\subsection{The Relational Case}
+\section{Relations}
+We show two alternative categorical views on relations. The first one
+understands a relation $R$ between sets $X$ and $Y$ as a function into
+a powerset of $Y$, namely the function $r$
+that assigns to each $x$ the set of all $y\in  Y$
+related to $x$. Formally, $r(x) = \{~y \in Y ~|~ x \sim_R Y~\}$. 
+On the other hand the same relation $R$ is a subset of the Cartesian
+product $X \x Y$ of those pairs $(x,y)$ for which $x \sim_R y$. We now
+give the standard Categorical presentation of these two points of view on
+relations. 
+
+\paragraph{Relations as Kleisli arrows}
 The assignment $X \mapsto 2^X$ extends to a functor $2^{(-)} : \Set \to
 \Set$ where the action on arrows is direct image \eqref{eq:di}.
 The functor is a monad where the unit, $\eta$, maps $x$ to $\{x\}$ and
@@ -126,281 +136,118 @@ and $f \mapsto \eta \cdot f$ on arrows and $\mathbf{U}$ is $\mathbf{T}$ on
 objects and $\mu\cdot\mathbf{T}f$ on arrows. Moreover,
 $\mathbf{U}\mathbf{F} = \mathbf{T}$.
 
-By $\Rel$ we hereafter mean the Kleisli category of $2^{(-)}$, which is 
+Thus by $\Rel$ one can understand the Kleisli category of $2^{(-)}$, which is 
 understood as the category of sets and relations where a function $r :
 X \to 2^Y$ defines a relation $\sim_R$ by
 \[
 x ~\sim_R~ y \quad \equiv \quad y \in fx
 \]
-\renewcommand{\wp}[1]{2^{#1}} It follows that equation \eqref{eq:q}  exhibits a
-quantifier as a relation $\wp{Y} \to \wp{Y}$.  
+
+
+\paragraph{Relations as spans}
+On the other hand the same relation $R$ defines a subset of $X \x Y$
+by $\{~(x,y) ~|~ x \sim_R y~\}$. In $\Set$, such a subset is a
+\emph{span} over $X$ and $Y$:
+\[\bfig
+\Atriangle/->`->`{}/[R`X`Y;p`q`]
+\morphism/<-/[X`X\x Y;\pi_1]
+\morphism(500,0)[X\x Y`Y;\pi_2]
+\morphism(500,500)|m|/-->/<0,-500>[R`X\x Y;\langle p,q \rangle]
+\efig\]
+Such spans form a (bi)category with unit given by:
+\[\bfig
+\Atriangle/->`->`/[X`X`X;\id`\id`]
+\efig\]
+And composition using the pullback as follows:
+\[\bfig
+\Atriangle/->`->`{}/[R`X`Y;p`q`]
+\Atriangle(1000,0) /->`->`{}/[S`Y`Z;r`s`]
+\Atriangle(500,500) /->`->`{}/[R\x_\bullet S`R`S;`{}`]
+\efig\]
+where $R\x_\bullet S$ is the pullback of $q$ and $r$.
+
+\newcommand{\Span}{\mathrm{Span}}
+For an arbitrary category $\cC$, the category of spans in $\cC$,
+formally $\mathrm{Span}(\cC)$, is a bicategory where a 2-cell $R
+\Rightarrow S : X \leftrightarrow Y$ is given
+by the vertical arrow in the following diagram:
+\[\bfig
+\Atriangle/->`->`{}/[R`X`Y;p`q`]
+\Vtriangle(0,-500)/`<-`<-/[X`Y`S;`r`s]
+\morphism(500,500)/-->/<0,-1000>[R`S;]
+\efig\]
+%
+We leave out the details that this indeed forms a bicategory.
+
+Finally, note that the
+correspondence between spans and relations is an equivalence rather
+than an isomorphism, as there might be many spans representing
+(tabulating) the
+same relation. However, all such spans are equivalent via suitable
+2-cells. Thus, strictly speaking $\Rel$ is the quotient
+posetal\footnote{where between each pair $f,g : X \to Y$ of 1-cells is
+  at most one 2-cell.}
+bicategory $\Span(\Set)/_\simeq$ where
+$\simeq$ is the above-described equivalence.
+
+%
+
+
+\section{Powerset Relations}
+In this section we study relations over powersets of sets,
+i.e. relations between sets $2^X$ and $2^Y$ for some sets $X$, $Y$.
+
+\subsection{Definition}
+The following is the key observation of this section: 
+\begin{proposition}
+  A relation between $2^X$ and $2^Y$ is equivalently a set $T$
+  together with a pair of \emph{relations} $p : T \to X$ and $q : T
+  \to Y$, i.e. a span of relations, i.e. a relation in
+  $\Rel$. 
+\end{proposition}
+\begin{proof}
+Given a relation $R$ define $T = \{ ~ x \in 2^X , y \in 2^Y ~|~
+x\sim_R  y\}$. Such $T$ comes with two projections $\pi_X : T \to 2^X$
+and $\pi_y : T \to 2^Y$, which are relations in the first sense. In a
+diagram, in $\Rel$ (!):
+\[\bfig
+\Atriangle/->`->`{}/[\{ ~ x \in 2^X , y \in 2^Y ~|~
+x\sim_R  y\}`X`Y;\pi_X`\pi_2`]
+\efig
+\]
+%
+On the other hand given a span of relations:
+\[\bfig
+\Atriangle/->`->`{}/[R`X`Y;\pi_X`\pi_2`]
+\efig
+\]
+define a relation between $2^X$ and $2^Y$ as in the general case by
+\[
+x \subseteq X ~\sim_R~y\subseteq Y \quad \equiv \quad \exists r \in
+R. ~ \pi_X(r) = x \, \wedge \, \pi_Y(r) = y
+\]
+\end{proof}
+%
+In summary, whereas the category $\Rel$ is $\Span(\Set)$, powerset
+relations are $\Span(\Rel) = \Span(\Span(\Set))$. We denote this
+bicategory $\wp\Rel$.
+
+\subsection{Compact-closed structure of $\wp\Rel$}
+
+
+
+
+\section{Quantifiers as Relations}
+\renewcommand{\wp}[1]{2^{#1}} It follows from what was said thus far
+that equation \eqref{eq:q} exhibits a quantifier as a relation $\wp{Y}
+\to \wp{Y}$.
 
 
 So in order to interpret generailed quantifiers in $\Rel$, we look
-into relations over powersets. And the first line of attack is to try
-to lift the powerset functor from $\Set$ to $\Rel$. That would allow
-us to take constructions in $\Rel$ to constructions in $\Rel$ which
-involve powersets. More exactly, we'd like to have a functor that acts
-as $2^(-)$ on objects. The question is what should be the action on
-arrows.  One possibility is to use the action of $2^{(-)}$ on
-functions because relations are functions of the form $X \to 2^Y$ and
-applying $2^{(-)}$ to it gives a function of the same form namely $2^X
-\to 2^{2^Y}$. However, this definition is not very practical as it
-defines a relation between $2^X$ and $2^Y$ which relates each $X'
-\subseteq X$ to a $Y' \subseteq Y$ iff $Y'$ is the image of some $x
-\in X'$. We need something else.  Here is another possibility:
-define the powerset relation of a relation $R : X \to Y$ to be:
-%
-\begin{equation}\label{eq:power}
-X' ~ \sim_{\exists R} ~ Y' \quad \equiv \quad \forall y \exists x . x \sim_R y
-\end{equation}
-% 
-The trouble is this doesn't define a functor as the following
-calculation shows, using $x \sim_\id y
-\equiv x = y$. Then 
-\begin{align*}
-    X' \sim_{\exists \id} Y' & ~ \equiv ~ \forall y \in Y' ~ \exists x \,.\, x \sim_\id y\\
-&~\equiv~ \forall y \in Y' ~ \exists x\,.\, x = y \\
-&~\equiv~\forall y \in Y' \,.\, y \in X'\\
-& ~\equiv ~ Y' \subseteq X'
-  \end{align*}
-%
-So $\exists \id$ is the down-closure of the identitiy. This is a general
-fact for all relations of the form $\exists R$, namely that whenever $X
-\sim_{\exists R} Y$ then also $X' \sim_{\exists R} Y'$ for $X \subseteq X'$ and
-$Y' \subseteq Y$. \marginpar{\tiny Something to say about\\weakest
-  preconditions\\and strongest\\postconditions? }
-
-\begin{remark}
-It follows that a subset of $X' \subseteq X$, i.e. a relation $X' : 1 \to X$, is
-mapped to $2 \to 2^X$, which relates $1$ to the principal ideal of
-$X'$, i.e. the set of subsets of $X'$, and $0$ to nothing. On the
-other hand, and dually, $X' : X \to 1$ is mapped to $2^X \to 2$ such
-that all of $X'$ and all its superset are related to $1$ and nothing
-to $0$. 
-\end{remark}
-
-This could be useful though. Luckily, $\exists {(-)}$ preserves composition
-as the following calculation shows:
-\begin{align}
-X' \sim_{\exists R};\sim_{\exists S} Z'& ~ \equiv ~\exists Y'. Y' \sim_{\exists S} Z' \wedge X' \sim_{\exists R} Y'\notag\\
-\label{eq:comp1}  & ~ \equiv ~ \exists Y'.(\forall z\in Z'\exists y\in
-Y'. y \sim_S z)\wedge (\forall y\in Y' \exists x \in X'. x \sim_R y) 
-\end{align}
-
-%
-This should be equivalent to:
-\begin{align}
-X' \sim_{\exists {R;S}} Z' &~\equiv~ \forall z\in Z' \exists x \in X'. x~ R;S~ z\notag\\
-\label{eq:comp2}&~\equiv~ \forall z\in Z' \exists x\in X'\exists y\in Y. x \sim_R y \wedge y \sim_S z
-\end{align}
-To show that \eqref{eq:comp1} implies \eqref{eq:comp2}, assume a $z \in
-Z'$, by the first component of \eqref{eq:comp1} we have a $Y'
-\subseteq Y$ and a $y \in Y'$
-such that $y \sim_S z$. By the second component of \eqref{eq:comp1},
-we have for this $y$ and $x \in X'$ such that $x \sim_R y$, as requred
-by \eqref{eq:comp2}. On the other hand, assume \eqref{eq:comp2} and
-define $Y'$ to be the set of all $y \in Y$ that are given by the
-existential in \eqref{eq:comp2} for some $z$. Then clearly for all $y
-\in Y'$, the conclusion of \eqref{eq:comp1} holds. 
-
-So \eqref{eq:power} deoesn't define a functor $\Rel \to \Rel$ but
-nevertheless it preserves commuting diagrams. 
-
-Next we define frobenius algebras. This is easy as we just use the
-usual definition for sets and relations. The following observation
-might be useful: 
-\begin{remark}
-The relation $\Delta_{\exists X} : 2^X
-\to 2^X \x 2^X$ is equal to $2^X \to^{\exists \Delta} 2^{X \x X}
-\to^{[\Delta,\Delta]_\ast} 2^{X + X} \cong 2^X \x 2^X$.  $2^\Delta$ relates
-a subset $X' \subseteq X$ to subsets $\{ (x,x) | x \in X' \}\subseteq
-X \x X$. The inverse image ${[\Delta,\Delta]_\ast}$ unzips the diagonal
-to a pair of identical subsets of $X$. Thus, the composition is equal
-to $\Delta$.
-\end{remark}
-
-
-% It is well known \cite{beck69,mulry94} that every lifting of a monad, $\mathbf{T}$, to the
-% Klesli category of another monad, $\mathbf{S}$, is given by a natural
-% transformation $\lambda: \mathbf{TS} \dot{\rightarrow} \mathbf{ST}$
-% satisfying \emph{(certain axioms)}, where by a lifting of $\mathbf{T}
-% : \cat{C} \to \cat{C}$ to $\cat{C}_{\mathbf{S}}$ we mean a functor
-% $\mathbf{T}_{\mathbf{S}} : \cat{C}_{\mathbf{S}} \to
-% \cat{C}_{\mathbf{S}}$ such that $\mathbf{F}\cdot \mathbf{T} =
-% \mathbf{T}_{\mathbf{S}}\cdot \mathbf{F}$. 
-
-% In our case, $\mathbf{T} = \mathbf{S} = \wp{-}$, the powerset monad, and
-% $\lambda_X: \wp{\wp{ X}} \to \wp{\wp{X}}$ takes $x \in \wp{\wp{X}}$ to the
-% principal ideal\footnote{The principal ideal on a set $X$ is a subset
-%   of $\wp{X}$ closed under subsets and finite unions.} on $\bigcup
-% x$. 
-
-% In elementary terms, $\lambda$ takes a set of subsets $X'$ of $X$ to the
-% set of \emph{all} subsets of the union of $X'$. 
-% In terms of relations, the lifting has the following interpretation:
-% it takes a relation $r : X  \to Y$ to the relation $\wp{r} : \wp{X}
-% \to \wp{Y}$ for which $X' \subseteq X \sim_{\wp{r}} Y' \subseteq Y$ iff
-% $\forall y \in Y'. \exists  x \in X'. x \sim_r y$. 
-
-\subsection{$\forall R$ and Comparison with adjoints}
-Recall the contravariant inverse image functor $(-)_\ast : \Rel^\op
-\to \Rel$ taking an $R : X \to Y$ to $R_\ast : 2^Y \to 2^X$ defined by 
-\[
-Y' \sim_{R_\ast} X' \quad \equiv \quad 
-\]
+into relations over powersets. 
 
 
 
-\subsection{Ideals and Relations}
-\ondrej{Roughly: properties are relations $\wp{X} \to \wp{Y}$ which
-  are downclosed -- if a collections of things has the property, each
-  it's subset has the property, closed under unions -- if things in two
-  collections have the property, then each thing in their union has
-  the property, contains the empty set -- trivially. This is to be
-  worked out.}
-
-
-% The functor
-% $\mathbf{F}\mathbf{U}$, where $\mathbf{F} \dashv \mathbf{U}$ is the
-% splitting of $\wp-$ fits the type but not the purpose as it takes a
-% set $X$ to the functional relation whose only result is the union of
-% $R$ applied to each 
-% . It takes 
-% a relation $R : X \to Y$ to the relation $2^R = \eta\mu: 2^X \to 2^Y$
-
-% , we use the
-% left adjoint $F: \Set \to \Set_{\wp-}$.
-
-
-% lift
-% $\wp-$ to $\Rel$ using a \emph{distributive law} \cite{Beck69}. Define
-% $\wp- : \Rel \to \Rel$ on objects by $X \mapsto \wp X$, and on arrows as
-% follows: a relation $R : X \to Y$ is mapped to that relation $\wp R :
-% \wp X \to \wp Y$ which relates every subset of $X$ to all subsets of
-% $Y$ which arise from $X$ by replacement of elements under $R$. In
-% other words, when relations are understood as nondeterministic partial
-% functions $\wp R$ captures all possible nondeterminism on collections
-% of elements. More formally, identify $\Rel$ with the Kleisli category
-% of $\wp-$. There is a distributive law, a natural transformation
-% $\lambda_X : \wp{\wp X} \to \wp{\wp X}$, which takes a set of subsets
-% of $X$ into the set of its crossections.
-
-% For example: 
-% \begin{align*}
-% \lambda (\{\{a,b\},\{c\}\}) & \quad = \quad \{\{a,c\},\{b,c\}\}\\
-% \lambda (\{\{a\}\},\{\{b\}\}) & \quad = \quad \{ a , b \} \\
-% \lambda (\{\{a,b\},\{c\},\emptyset\}) &\quad = \quad \emptyset
-% \end{align*}
-
-% It follows from the theory in \cite{Beck69} that $\wp-$ lifts to $\Rel$ where a
-% relation $R :  X \to \wp Y$ is taken to $\wp R : \wp X
-% \xrightarrow{\wp r} \wp {\wp Y}
-% \xrightarrow{\lambda_Y} \wp {\wp Y}$.
-
-
-% {\bf Example:} The Frobenius relation $\delta$ is a map : $x \mapsto
-% (x,x)$. It follows that \[2^\delta = X \mapsto \{ (x,x) | x \in X
-% \}\].  
-
-% \begin{quote}
-% {\bf O.R.} Now it all works out :)
-% \end{quote}
-
-
-% Examples of calculations with determiners: exists, all, some, two
-
-
-
-
-
-%For this part, we work in the category $Rel$ of sets and relations. This is compact closed as follows \cite{BobEric}. 
-%
-%Take $N$ to be a vector space with a fixed basis ${\cal B}$, where ${\cal B}$ is a finite set. A  basis vector of $N$  is denoted by $\ov{n}_i$. Given a set of individuals ${\cal U}$,  each  individual is mapped to a basis vector of $N$, the map is denoted by $\pi \colon {\cal U} \to {\cal B}$.  Thus a subset of basis vectors of $N$ represents a subset of individuals.  For example,    the sum $\sum_i \ov{n}_i$ denotes the `men' subset of individuals, where $i$ ranges over the basis vectors that are mappings of the individuals that are men. 
-%
-%Take $S$ to be the one dimensional space free over the singleton $\ov{1}$. The  zero vector represents false, and any nonzero value represents a degree of truth. 
-%
-%A transitive verb $w$, which is a vector in the space $N \otimes S
-%\otimes N$, is represented by 
-%\[
-%\ov{w} := \sum_{ij} \ov{\{{n}\}}_i \otimes \ov{1}  \otimes \ov{\{n\}}_j, \quad 
-%\text{if} \  \pi^{-1}({n}_i) \ w\mbox{'s} \  \pi^{-1}({n}_j)
-%\]
-% For example, the verb ``stroke'', denoted by $\ov{stroke}$, is represented by $
-%\sum_{(i,j) \in  R_{stroke}} \ov{\{n\}}_i \otimes  \ov{1}
-%\otimes \ov{\{n\}}_j$, for  $R_{stroke}$  the set of all pairs $(i,j)$ such that $\pi^{-1}(\ov{n}_i)$ strokes $\pi^{-1}(\ov{n}_j)$.  An intransitive verb ``sneeze'', denoted by $\ov{sneeze}$, is represented by $\sum_{i \in R_{sleep}} \ov{\{n\}}_i \otimes \ov{1}$, such that $\pi^{-1}(\ov{n}_i)$ sneezes.  
-%
-%
-%The meaning of the sentence ``Det Sbj Verb''is a vector obtained by computing the following, which corresponds to the categorical morphism of the normalised diagram of the sentence.  
-%
-%\[
-%(\epsilon_N \otimes 1_S) \circ (Det \otimes  \mu_N \otimes 1_S) \circ (\delta_N \otimes 1_{N \otimes S})\Big(\ov{Sbj} \otimes \ov{Verb}\Big)
-%\]
-%This is computed in three steps. First we compute the following
-%
-%\begin{align*}
-%(\delta_N \otimes 1_{N \otimes S})\Big(\ov{Sbj} \otimes \ov{Verb}\Big) = 
-%(\delta_N \otimes 1_{N \otimes S})\Big((\sum_i \ov{n}_i) \otimes (\sum_j \ov{n}_j  \otimes \ov{1}) \Big) =\\
-%\delta_N(\sum_i \ov{n}_i) \otimes (\sum_j \ov{n}_j \otimes \ov{1}) = (\sum_i \ov{n}_i \otimes \ov{n}_i) \otimes (\sum_j \ov{n}_j \otimes \ov{1})
-%\end{align*}
-%
-%\noindent
-%Then we proceed by
-%
-%\begin{align*}
-%(Det \otimes  \mu_N \otimes 1_S)\Big(\sum_i \ov{n}_i \otimes \ov{n}_i) \otimes (\sum_j \ov{n}_j \otimes \ov{1}\Big) = \\
-%Det(\sum_i \ov{n}_i) \otimes  \mu_N(\sum_i \sum_j \ov{n}_i \otimes \ov{n}_j) \otimes 1_S(\ov{1}) = \\
-%Det(\sum_i \ov{n}_i) \otimes  (\sum_i \sigma_{ij} \ov{n}_i) \otimes \ov{1} 
-%\end{align*}
-%
-%\noindent
-%The final step is as follows:
-%
-%\begin{align*}
-%(\epsilon_{N} \otimes 1_S)  \Big(Det(\sum_i \ov{n}_i) \otimes (\sum_i \sigma_{ij} \ov{n}_i) \otimes \ov{1} \Big) =   \langle \ov{w}_k \mid \ov{\{\sum_i \ov{n}_i\}} \rangle  \otimes \ov{1}
-%\end{align*}
-%
-%\noindent 
-%where $Det (\sum_i \ov{n}_i) = \sum_k \ov{w}_k$, for $w_k \subseteq B_N$ where $B_N$ is the set of basis vectors of $N$.  Meanings of sentences with quantified objects and transitive verbs are computed in an identical fashion. 
-%
-%
-%
-%
-%As an example suppose we have  a set of men $\{m_1, m_2\}$ and a set of cats $\{c_1, c_2\}$. Now suppose that one of the men $m_1$ and all of the cats  sleep, that is we have
-%\[
-%\ov{sleep} \ = \  \ov{m}_1 \otimes \ov{1} + \ov{c}_1 \otimes \ov{1} + \ov{c}_2 \otimes \ov{1}
-%\]
-%Here are some sample sentences:
-%\begin{enumerate}
-%\item The meaning  of the sentence `some men sleep', is computed in three steps. In the first step, we obtain
-%\[
-%(\ov{m}_1 \otimes \ov{m}_1 + \ov{m}_2 \otimes \ov{m}_2)  \otimes ( \ov{m}_1 \otimes \ov{1} + \ov{c}_1 \otimes \ov{1} + \ov{c}_2 \otimes \ov{1})
-%\]
-%In the second step we obtain
-%\[
-%Some(\ov{m}_1 + \ov{m}_2) \otimes {\cal P}(\ov{m}_1) \otimes \ov{1} = 
-%(\ov{\{\ov{m}_1\}} + \ov{\{\ov{m}_2\}} + \ov{\{\ov{m}_1, \ov{m}_2\}}) \otimes (\ov{\{\ov{m}_1\}}) \otimes \ov{1}
-% \]
-%In the last step we obtain $\ov{1}$, since we have $\left \langle \ov{\{\ov{m}_1\}} \mid \ov{\{\ov{m}_1\}}) \right \rangle = 1$. This  means that the meaning of this sentence is true.  
-%\item The meaning of `all men sleep' would be false. Since, in this case, in the second step we would obtain
-%\[
-%All(\ov{m}_1 + \ov{m}_2) \otimes {\cal P}(\ov{m}_1) \otimes \ov{1} = 
-%(\ov{\{\ov{m}_1, \ov{m}_2\}}) \otimes (\ov{\{\ov{m}_1\}}) \otimes \ov{1}
-% \]
-%which would result to a 0 in the third step, since $\left \langle \ov{\{\ov{m}_1, \ov{m}_2\}} \mid \ov{\{\ov{m}_1\}}) \right \rangle = 0$.  
-%\item The sentence `half of  men sleep' would also be true, since in the second step we obtain
-%\[
-%Half(\ov{m}_1 + \ov{m}_2) \otimes {\cal P}(\ov{m}_1) \otimes \ov{1} = 
-%(\ov{\{\ov{m}_1\}} + \ov{\{\ov{m}_2\}}) \otimes (\ov{\{\ov{m}_1\}}) \otimes \ov{1}
-% \]
-%since we  have $\left \langle \ov{\{\ov{m}_1\}} \mid \ov{\{\ov{m}_1\}}) \right \rangle = 1$, in the third step we will obtain a $\ov{1}$.  
-%\item The sentence `no man sleeps' will be false, since in the second step we obtain
-%\[
-%No(\ov{m}_1 + \ov{m}_2) \otimes {\cal P}(\ov{m}_1) \otimes \ov{1} = 
-%(\ov{\{ \ \}}) \otimes (\ov{\{\ov{m}_1\}}) \otimes \ov{1}
-% \]
-% This, in the third step,  will results in $\left \langle \ov{\{\ \}} \mid \ov{\{\ov{m}_1\}}) \right \rangle = 0$.
-%\end{enumerate}
 
 
 %%% Local Variables: 
