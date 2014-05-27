@@ -121,7 +121,7 @@ product $X \x Y$ of those pairs $(x,y)$ for which $x \sim_R y$. We now
 give the standard Categorical presentation of these two points of view on
 relations. 
 
-\paragraph{Relations as Kleisli arrows}
+\subsection*{Relations as Kleisli arrows}
 The assignment $X \mapsto 2^X$ extends to a functor $2^{(-)} : \Set \to
 \Set$ where the action on arrows is direct image \eqref{eq:di}.
 The functor is a monad where the unit, $\eta$, maps $x$ to $\{x\}$ and
@@ -144,10 +144,11 @@ x ~\sim_R~ y \quad \equiv \quad y \in fx
 \]
 
 
-\paragraph{Relations as spans}
+\subsection*{Relations as spans in $\Set$}
 On the other hand the same relation $R$ defines a subset of $X \x Y$
-by $\{~(x,y) ~|~ x \sim_R y~\}$. In $\Set$, such a subset is a
-\emph{span} over $X$ and $Y$:
+by $\{~(x,y) ~|~ x \sim_R y~\}$. Such a set is called the
+\emph{tabulation of $R$}. In $\Set$, such a subset is a \emph{span}
+over $X$ and $Y$:
 \[\bfig
 \Atriangle/->`->`{}/[R`X`Y;p`q`]
 \morphism/<-/[X`X\x Y;\pi_1]
@@ -177,20 +178,28 @@ by the vertical arrow in the following diagram:
 \morphism(500,500)/-->/<0,-1000>[R`S;]
 \efig\]
 %
-We leave out the details that this indeed forms a bicategory.
+We leave out the details that this indeed forms a bicategory. We leave
+the compact closed monoidal structure of $\Span(\Set)$ as an easy
+exercise. 
 
 Finally, note that the
 correspondence between spans and relations is an equivalence rather
-than an isomorphism, as there might be many spans representing
+than an isomorphism, as there may be many spans representing
 (tabulating) the
-same relation. However, all such spans are equivalent via suitable
-2-cells. Thus, strictly speaking $\Rel$ is the quotient
+same relation. For instance, whenever $X \to/<-/^p R \to^q Y$ tabulates a
+relation, $X \to/<-/^{[p,p]} R + R \to^{[q,q]} Y$ tabulates the same relation.
+However, all such spans are equivalent via suitable
+2-cells\footnote{Not true! $R+R$ is not $\cong R$}. Thus, strictly speaking $\Rel$ is the quotient
 posetal\footnote{where between each pair $f,g : X \to Y$ of 1-cells is
   at most one 2-cell.}
 bicategory $\Span(\Set)/_\simeq$ where
 $\simeq$ is the above-described equivalence.
 
 %
+\subsection{Relations in Compact Closed Categories}
+The construction of the category of relations $\Span(\cC)$ can be
+generalised to an arbitrary category. The resulting category is
+compact closed if $\cC$ is. Here are some of the details. 
 
 
 \section{Powerset Relations}
