@@ -115,7 +115,7 @@ We show two alternative categorical views on relations. The first one
 understands a relation $R$ between sets $X$ and $Y$ as a function into
 a powerset of $Y$, namely the function $r$
 that assigns to each $x$ the set of all $y\in  Y$
-related to $x$. Formally, $r(x) = \{~y \in Y ~|~ x \sim_R Y~\}$. 
+related to $x$. Formally, $r(x) = \{~y \in Y ~|~ x \sim_R y~\}$. 
 On the other hand the same relation $R$ is a subset of the Cartesian
 product $X \x Y$ of those pairs $(x,y)$ for which $x \sim_R y$. We now
 give the standard Categorical presentation of these two points of view on
@@ -146,8 +146,8 @@ x ~\sim_R~ y \quad \equiv \quad y \in fx
 
 \subsection*{Relations as spans in $\Set$}
 On the other hand the same relation $R$ defines a subset of $X \x Y$
-by $\{~(x,y) ~|~ x \sim_R y~\}$. Such a set is called the
-\emph{tabulation of $R$}. In $\Set$, such a subset is a \emph{span}
+by $R = \{~(x,y) ~|~ x \sim_R y~\}$. Such a set is called the
+\emph{tabulation of $R$}. In $\Set$, $R$ with the two projections is a \emph{span}
 over $X$ and $Y$:
 \[\bfig
 \Atriangle/->`->`{}/[R`X`Y;p`q`]
@@ -155,23 +155,26 @@ over $X$ and $Y$:
 \morphism(500,0)[X\x Y`Y;\pi_2]
 \morphism(500,500)|m|/-->/<0,-500>[R`X\x Y;\langle p,q \rangle]
 \efig\]
-Such spans form a (bi)category with unit given by:
-\[\bfig
-\Atriangle/->`->`/[X`X`X;\id`\id`]
-\efig\]
-And composition using the pullback as follows:
+Spans form a (bi)category where composition is defined using the
+pullback as in the following diagram:
 \[\bfig
 \Atriangle/->`->`{}/[R`X`Y;p`q`]
 \Atriangle(1000,0) /->`->`{}/[S`Y`Z;r`s`]
-\Atriangle(500,500) /->`->`{}/[R\x_\bullet S`R`S;`{}`]
+\Atriangle(500,500) /->`->`{}/[R\x_Y S`R`S;`{}`]
 \efig\]
-where $R\x_\bullet S$ is the pullback of $q$ and $r$.
+where $R\x_Y S$ is the pullback of $q$ and $r$.
+The unit is then just the span of identities:
+\[\bfig
+\Atriangle/->`->`/[X`X`X;\id`\id`]
+\efig\]
+
 
 \newcommand{\Span}{\mathrm{Span}}
+\newcommand{\Rel}{\mathrm{Rel}}
 For an arbitrary category $\cC$, the category of spans in $\cC$,
-formally $\mathrm{Span}(\cC)$, is a bicategory where a 2-cell $R
-\Rightarrow S : X \leftrightarrow Y$ is given
-by the vertical arrow in the following diagram:
+formally $\Span(\cC)$, is a bicategory where a 2-cell $R
+\Rightarrow S : X \leftrightarrow Y$ is 
+the vertical arrow in the following commuting diagram:
 \[\bfig
 \Atriangle/->`->`{}/[R`X`Y;p`q`]
 \Vtriangle(0,-500)/`<-`<-/[X`Y`S;`r`s]
@@ -180,7 +183,7 @@ by the vertical arrow in the following diagram:
 %
 We leave out the details that this indeed forms a bicategory. We leave
 the compact closed monoidal structure of $\Span(\Set)$ as an easy
-exercise. 
+exercise.  
 
 Finally, note that the
 correspondence between spans and relations is an equivalence rather
@@ -198,7 +201,7 @@ $\simeq$ is the above-described equivalence.
 %
 \subsection{Relations in Compact Closed Categories}
 The construction of the category of relations $\Span(\cC)$ can be
-generalised to an arbitrary category. The resulting category is
+generalised to an arbitrary category with pullbacks. The resulting category is
 compact closed if $\cC$ is. Here are some of the details. 
 
 
