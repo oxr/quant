@@ -155,7 +155,7 @@ over $X$ and $Y$:
 \morphism(500,0)[X\x Y`Y;\pi_2]
 \morphism(500,500)|m|/-->/<0,-500>[R`X\x Y;\langle p,q \rangle]
 \efig\]
-Spans form a (bi)category where composition is defined using the
+Spans form a (bi)category where composition is defined using
 pullback as in the following diagram:
 \[\bfig
 \Atriangle/->`->`{}/[R`X`Y;p`q`]
@@ -173,7 +173,7 @@ The unit is then just the span of identities:
 %\newcommand{\Rel}{\mathrm{Rel}}
 For an arbitrary category $\cC$, the category of spans in $\cC$,
 formally $\Span(\cC)$, is a bicategory where a 2-cell $R
-\Rightarrow S : X \leftrightarrow Y$ is 
+\Rightarrow S : X \longleftrightarrow Y$ is 
 the vertical arrow in the following commuting diagram:
 \[\bfig
 \Atriangle/->`->`{}/[R`X`Y;p`q`]
@@ -199,10 +199,15 @@ bicategory $\Span(\Set)/_\simeq$ where
 $\simeq$ is the above-described equivalence.
 
 %
-\subsection{Relations in Compact Closed Categories}
+\subsection{Relations in arbitrary categories}
 The construction of the category of relations $\Span(\cC)$ can be
 generalised to an arbitrary category with pullbacks. The resulting category is
-compact closed if $\cC$ is. Here are some of the details. 
+compact closed if $\cC$ is. 
+
+\begin{remark}It seems that associativity of composition in
+  $\Rel{\cC}$ has to do with the existence of a factorisation system
+  (both our key examples have one). 
+\end{remark}
 
 
 \section{Powerset Relations}
@@ -212,41 +217,51 @@ i.e. relations between sets $2^X$ and $2^Y$ for some sets $X$, $Y$.
 \subsection{Definition}
 The following is the key observation of this section: 
 \begin{proposition}
-  A relation between $2^X$ and $2^Y$ is equivalently a set $T$
-  together with a pair of \emph{relations} $p : T \to X$ and $q : T
-  \to Y$, i.e. a span of relations, i.e. a relation in
-  $\Rel$. 
+  A relation between powersets is a relation in $\Rel$.
 \end{proposition}
 \begin{proof}
-Given a relation $R$ define $T = \{ ~ x \in 2^X , y \in 2^Y ~|~
-x\sim_R  y\}$. Such $T$ comes with two projections $\pi_X : T \to 2^X$
-and $\pi_y : T \to 2^Y$, which are relations in the first sense. In a
-diagram, in $\Rel$ (!):
+Given a relation $R : 2^X \longleftrightarrow 2^Y$ let $T$ with $\pi_X : T \to 2^X$
+and $\pi_y : T \to 2^Y$ be its tabulation. Each of the projections is
+a Kleisli arrow, i.e. a relation in the first sense:
 \[\bfig
-\Atriangle/->`->`{}/[\{ ~ x \in 2^X , y \in 2^Y ~|~
-x\sim_R  y\}`X`Y;\pi_X`\pi_2`]
+\Atriangle/->`->`{}/[T`2^X`2^Y;\pi_X`\pi_2`]
 \efig
 \]
+This is a span
+\[\bfig
+\Atriangle/->`->`{}/[T`X`Y;\pi_X`\pi_2`]
+\efig
+\]
+in $\Rel$. 
 %
-On the other hand given a span of relations:
+On the other hand given a relation of relations $R$:
 \[\bfig
 \Atriangle/->`->`{}/[R`X`Y;\pi_X`\pi_2`]
 \efig
 \]
-define a relation between $2^X$ and $2^Y$ as in the general case by
+by passing from the Kleisli to the underyling category one obtains a
+span in $\Set$ whose domain and codomain are powersets. Note that we
+are not applying the underlying set functor, just forgetting the
+Kleisli category structure.
+Explicitly, the ordinary relation obtained from $R$ is:
 \[
 x \subseteq X ~\sim_R~y\subseteq Y \quad \equiv \quad \exists r \in
 R. ~ \pi_X(r) = x \, \wedge \, \pi_Y(r) = y
 \]
 \end{proof}
 %
-In summary, whereas the category $\Rel$ is $\Span(\Set)$, powerset
-relations are $\Span(\Rel) = \Span(\Span(\Set))$. We denote this
-bicategory $\wp\Rel$.
-
-\subsection{Compact-closed structure of $\wp\Rel$}
+Less formally: a relation is a subset\footnote{of the cartesian product of the
+relation's domain and codomain}, thus a
+relation on relations is a relation on subsets.
 
 
+
+\subsection{Limits in $\Rel$}
+\begin{remark}The key question in all this is how does taking $\Rel$
+  of something preserve limits. Are there limits in spans? In or at
+  least in the concrete case of  $\Rel(\Set)$? Does $\FdVect$ have
+  limits? 
+\end{remark}
 
 
 \section{Quantifiers as Relations}
@@ -254,11 +269,123 @@ bicategory $\wp\Rel$.
 that equation \eqref{eq:q} exhibits a quantifier as a relation $\wp{Y}
 \to \wp{Y}$.
 
-
 So in order to interpret generailed quantifiers in $\Rel$, we look
 into relations over powersets. 
 
 
+A table of some well known and
+some less known quantifiers is below. Here, $X,\,Y$ are all
+subsets of a set $U$. I.e. a quantifier is a relation $2^U
+\longleftrightarrow 2^U$. We define a relation in the Kleisli style.
+\begin{align*}
+\forall &:\quad X ~ \sim ~\{X\}\\
+\exists &:\quad X ~ \sim ~ \{~Y ~|~ Y \neq \emptyset
+~ \}\\
+2 &:\quad X ~\sim ~\{~Y ~|~ |Y| = 2~ \}\\
+\mathrm{none} & : \quad X ~ \sim ~ \{Y ~|~ Y \cap X = \emptyset \}
+\end{align*}
+Where $|Y|$ is the cardinality of $Y$.
+
+
+\section{Relations in $\FdVect$}
+The category $\FdVect$ is compact closed and has pullbacks, so we
+can form $\Rel{\FdVect}$, which is compact closed. 
+
+\begin{definition}
+Relations in $\Rel(\FdVect)$ are called \emph{linear relations}
+\end{definition}
+
+\begin{proposition}
+For a linear relation $\sim$ holds that for all $i$, $v_i ~\sim~u_i$ iff $\sum_i \alpha_i v_i ~\sim ~ \sum_i
+  \alpha_i u_i$. In words: linear relations are closed under linear combinations.
+\end{proposition}
+
+\begin{remark}
+The above proposition does not imply that if $u + v$ is related
+to some $x + y$ than $u$ is related to $x$ and $v$ is related to $y$
+or something similar. That would not even make sense in general. When
+defining linear relations, we explicitly name the vectors (linear
+combinations of basis vectors) that are related and then close
+under linear combinations. For example if $u + v  \sim x$ and $v \sim
+y$ then $u + 2v \sim x + y$ follows but $u + v$ is not related to $y$.
+\end{remark}
+
+\subsection{Examples}
+Let the basis be $\mathsf{J}, \mathsf{B}, \mathsf{M}, \mathsf{S}$ (for
+John, Ben, Mary and Sarah). Define $\sim$ for ``love'' as $\mathsf{J}
+~\sim~\mathsf{M}$ and $\mathsf{B}~\sim~\mathsf{S}$. Then necessarily,
+$\mathsf{J} + \mathsf{B} ~\sim~\mathsf{M}+\mathsf{S}$. In words: if
+John loves Mary and Ben loves Sarah, then John + Ben love Mary +
+Sarah. 
+
+If John loves Mary, and Ben also loves Mary, then John + Ben love
+2$\times$ Mary. I.e. Mary has twice as much love. 
+
+Let $I \cong \mathbb{K}$, be the monoidal unit and let $\mathsf{men} : I \to
+N$ relate the unit vector $\ket{0}$ to all vectors denoting men. Then
+necessarily each linear combination of men is related to
+$\alpha\ket{0}$, for some scalar $\alpha$. 
+
+
+We said that quantifiers are relations over subsets. For instance,
+$\exists$ (or ``some'') relates each set $X$ to each of its nonempty
+subsets. When moving to $\Rel(\FdVect)$ subsets become linear
+combinations. Thus quantifiers become relations over linear
+combinations. For instance ``some'' relates each linear combination,
+eg. $u + v$ to each of its factors, ie. $u+v \sim u$, $u+v \sim v$, $u
++ v \sim u + v$. The last case also follows by linearity from $u \sim
+u$ and $v \sim v$ but not the other ones unless either $u$ or $v$ are
+related to $0$.  All these cases are necessary in the correct
+interpretation of quantification. The quantifier $\forall$ (``all'')
+relates $u + v$ to $u+v$ only. 
+
+It's a question how to deal with scalars. Ideally we want to act as if
+all scalars were equal , thus $\forall$ should relate $u+v$ to $u+v$
+but also $u+2v$ to $u+2v$ (or $u+v$?). This should be easily done, as
+the cardinality of the set of all finite sequences of all reals is
+just the reals (via some Church encoding using exponents of primes,
+right? Real exponents?! We can say an infinite countable sequence of
+reals, that should be a real, and the finite ones are a subset of
+those which taper off after some finite number). 
+
+\section{Concluding Remark}
+Doing relations over $\FdVect$ is like doing set theory over
+vectors. Only in this case closed under linear combinations. We don't
+even have to restrict sets to the basis. By that I mean, pick some
+vectors $m_1, m_2, \ldots, m_i$ in $N$ as the set of men. Then define
+``some'' as a relation (ie. there's no requirement for linearity) on
+linear combinations of $m_i$ so that each linear combination $\sum_i
+\alpha_i m_i$ is related to $\sum \overline{\alpha_i} m_i$ where
+$\overline{\alpha}$ sets $\alpha$ \emph{nondeterministically} to $0$, but
+in such a way that at least one alpha is nonzero\footnote{You know
+  what I mean}. And possibly, following the remark above, for all
+possible other scalar multiples\footnote{This is a bit iffy, because
+  we would technically like vector space over the two-element field,
+  but the only two-element field there is is the one where + acts like
+  \textsf{xor} and we need proper \textsf{or}.}. Then ``some men
+sleep'' will give a nonzero if some nonempty linear combination of
+$m_i$ sleeps. 
+
+
+In relation to the $\Rel$ case, in an ambient vector space $N$, let
+$M$ be a subset of its vectors denoting men. Then some men are all its
+nonempty subsets, and we can make sense of all first order logic, and
+generalised quantifiers, in terms of sets. The fact that we are doing
+$\Rel(\FdVect)$ just means we moreover close our relations under
+linear combinations. And by that we seem to arrive at a compact-closed
+category again. I have yet to understand how precisely.
+
+
+The question is, what are we getting from this second step:
+linearity? Why don't we do just relations over vectors when we want a
+logic. The linearity adds something: a degree of truth perhaps. For
+instance, is ``some men sleep'' is true for more men, the truth is
+bigger. If for two men it's 3 (1 for each singleton, 1 for the
+couple), etc. Is it worth anything? It's highly dependent on the
+presentation, decomposition of linear compositions. Some linear
+compositions are more decomposable than others. 
+If we are after a boolean meaning
+we can do just relations over (sets of) vectors. 
 
 
 
